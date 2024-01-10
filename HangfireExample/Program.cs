@@ -1,4 +1,17 @@
+using Hangfire;
+
 var builder = WebApplication.CreateBuilder(args);
+
+
+builder.Services.AddHangfire(config =>
+{
+    config.SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
+   .UseSimpleAssemblyNameTypeSerializer()
+   .UseRecommendedSerializerSettings()
+   .UseSqlServerStorage("baðlantý");
+});
+
+builder.Services.AddHangfireServer();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
